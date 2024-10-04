@@ -1,4 +1,4 @@
-class Lamp
+class Lamp2
 {
     public String name;
 
