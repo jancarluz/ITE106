@@ -1,82 +1,97 @@
 import java.util.Scanner;
 
-public class StudentGradeBookWithArrayProcessing{
+public class StudentGradeBookWithArrayProcessing {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
+        Scanner sc = new Scanner(System.in);
+
         System.out.print("Enter the number of students: ");
-        int numStudents = scanner.nextInt();
-        scanner.nextLine();
+        int numStudents = sc.nextInt();
+        System.out.print("Enter the number of assignments: ");
+        int numAssignments = sc.nextInt();
+
         
-        String[] names = new String[numStudents];
-        int[][] grades = new int[numStudents][3];
+        String[] studentNames = new String[numStudents];
+        double[][] grades = new double[numStudents][numAssignments];
+        double[] averages = new double[numStudents];
+        char[] letterGrades = new char[numStudents];
+
         
         for (int i = 0; i < numStudents; i++) {
-            System.out.print("Enter name of student " + (i + 1) + ": ");
-            names[i] = scanner.nextLine();
+            sc.nextLine(); 
+             System.out.print("Enter name for student " + (i + 1) + ": ");
+            studentNames[i] = sc.nextLine();
+
+            double sum = 0;
+            for (int j = 0; j < numAssignments; j++) {
+                System.out.print("Enter grade for assignment " + (j + 1) + ": ");
+                grades[i][j] = sc.nextDouble();
+                sum += grades[i][j];
+            }
+
             
-            for (int j = 0; j < 3; j++) {
-                System.out.print("Enter score for assignment " + (j + 1) + ": ");
-                grades[i][j] = scanner.nextInt();
-            }
-            scanner.nextLine();
+            averages[i] = sum / numAssignments;
+            letterGrades[i] = getLetterGrade(averages[i]);
         }
 
-        double[] averageScores = new double[numStudents];
-        String[] letterGrades = new String[numStudents];
+      
+        System.out.println("\nStudent Grades:");
+        System.out.println("Name\t\tAverage\t\tGrade");
+        for (int i = 0; i < numStudents; i++) {
+            System.out.printf("%-15s\t%.2f\t\t%c\n", studentNames[i], averages[i], letterGrades[i]);
+        }
+
         
+        double highestAverage = averages[0];
+        double lowestAverage = averages[0];
+        for (int i = 1; i < numStudents; i++) {
+            if (averages[i] > highestAverage) highestAverage = averages[i];
+            if (averages[i] < lowestAverage) lowestAverage = averages[i];
+        }
+        System.out.printf("\nHighest Average: %.2f\n", highestAverage);
+        System.out.printf("Lowest Average: %.2f\n", lowestAverage);
+
+       
+        sortStudentsByAverage(studentNames, averages, letterGrades);
+
+        
+        System.out.println("\nSorted by Average:");
+        System.out.println("Name\t\tAverage\t\tGrade");
         for (int i = 0; i < numStudents; i++) {
-            int total = 0;
-            for (int j = 0; j < 3; j++) {
-                total += grades[i][j];
-            }
-            averageScores[i] = total / 3.0;
-            letterGrades[i] = assignLetterGrade(averageScores[i]);
+            System.out.printf("%-15s\t%.2f\t\t%c\n", studentNames[i], averages[i], letterGrades[i]);
         }
-        System.out.printf("%-20s %-10s %-10s %-10s %-10s%n", "Student Name", "Score 1", "Score 2", "Score 3", "Average");
-        for (int i = 0; i < numStudents; i++) {
-            System.out.printf("%-20s %-10d %-10d %-10d %-10.2f (%s)%n", names[i], grades[i][0], grades[i][1], grades[i][2], averageScores[i], letterGrades[i]);
-        }
+    }
 
-        double highest = averageScores[0], lowest = averageScores[0];
-        for (double score : averageScores) {
-            if (score > highest) highest = score;
-            if (score < lowest) lowest = score;
-        }
-        System.out.println("Highest average score: " + highest);
-        System.out.println("Lowest average score: " + lowest);
+    
+    private static char getLetterGrade(double average) {
+        if (average >= 90) return 'A';
+        else if (average >= 80) return 'B';
+        else if (average >= 70) return 'C';
+        else if (average >= 60) return 'D';
+        else return 'F';
+    }
 
-        for (int i = 0; i < averageScores.length - 1; i++) {
-            for (int j = 0; j < averageScores.length - 1 - i; j++) {
-                if (averageScores[j] > averageScores[j + 1]) {
-                    double tempAvg = averageScores[j];
-                    averageScores[j] = averageScores[j + 1];
-                    averageScores[j + 1] = tempAvg;
+    
+    private static void sortStudentsByAverage(String[] names, double[] averages, char[] grades) {
+        for (int i = 0; i < averages.length - 1; i++) {
+            for (int j = i + 1; j < averages.length; j++) {
+                if (averages[i] < averages[j]) {
+                    
+                    double tempAvg = averages[i];
+                    averages[i] = averages[j];
+                    averages[j] = tempAvg;
 
-                    String tempName = names[j];
-                    names[j] = names[j + 1];
-                    names[j + 1] = tempName;
+                    
+                    String tempName = names[i];
+                    names[i] = names[j];
+                    names[j] = tempName;
 
-                    int[] tempGrades = grades[j];
-                    grades[j] = grades[j + 1];
-                    grades[j + 1] = tempGrades;
+                   
+                    char tempGrade = grades[i];
+                    grades[i] = grades[j];
+                    grades[j] = tempGrade;
                 }
             }
         }
-
-        System.out.println("Sorted by average scores:");
-        for (int i = 0; i < numStudents; i++) {
-            System.out.printf("%-20s %.2f%n", names[i], averageScores[i]);
+    }
         }
-
-        scanner.close();
-    }
-
-    private static String assignLetterGrade(double average) {
-        if (average >= 90) return "A";
-        else if (average >= 80) return "B";
-        else if (average >= 70) return "C";
-        else if (average >= 60) return "D";
-        else return "F";
-    }
-}
