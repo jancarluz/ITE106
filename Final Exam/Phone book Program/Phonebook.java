@@ -12,20 +12,17 @@ public class PhonebookSystem extends JFrame implements ActionListener {
     private final File contactFile = new File("phonebook.txt");
 
     public PhonebookSystem() {
-        // Initialize UI components
         setTitle("Phonebook System");
         setSize(500, 450);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(new Color(230, 240, 255));
+        mainPanel.setBackground(new Color(30, 30, 30));
 
-        // Input Panel
         JPanel inputPanel = createInputPanel();
         JPanel buttonPanel = createButtonPanel();
         JPanel textAreaPanel = createTextAreaPanel();
 
-        // Add panels to the main panel
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
         mainPanel.add(textAreaPanel, BorderLayout.SOUTH);
@@ -36,8 +33,8 @@ public class PhonebookSystem extends JFrame implements ActionListener {
 
     private JPanel createInputPanel() {
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        inputPanel.setBackground(new Color(200, 220, 240));
-        inputPanel.setBorder(BorderFactory.createTitledBorder("Add or Search Contact"));
+        inputPanel.setBackground(new Color(40, 40, 40));
+        inputPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)), "Add or Search Contact", 0, 0, new Font("Arial", Font.BOLD, 12), Color.WHITE));
 
         nameField = new JTextField(15);
         phoneField = new JTextField(15);
@@ -46,6 +43,8 @@ public class PhonebookSystem extends JFrame implements ActionListener {
 
         nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
         phoneLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        nameLabel.setForeground(Color.WHITE);
+        phoneLabel.setForeground(Color.WHITE);
 
         phoneField.setInputVerifier(new InputVerifier() {
             @Override
@@ -71,7 +70,7 @@ public class PhonebookSystem extends JFrame implements ActionListener {
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        buttonPanel.setBackground(new Color(230, 240, 255));
+        buttonPanel.setBackground(new Color(30, 30, 30));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         addButton = createStyledButton("Add");
@@ -91,14 +90,15 @@ public class PhonebookSystem extends JFrame implements ActionListener {
 
     private JPanel createTextAreaPanel() {
         JPanel textAreaPanel = new JPanel(new BorderLayout());
-        textAreaPanel.setBackground(new Color(200, 220, 240));
-        textAreaPanel.setBorder(BorderFactory.createTitledBorder("Contacts"));
+        textAreaPanel.setBackground(new Color(40, 40, 40));
+        textAreaPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)), "Contacts", 0, 0, new Font("Arial", Font.BOLD, 12), Color.WHITE));
 
         contactArea = new JTextArea(12, 20);
         contactArea.setEditable(false);
         contactArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        contactArea.setBackground(new Color(240, 250, 255));
-        contactArea.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        contactArea.setBackground(new Color(50, 50, 50));
+        contactArea.setForeground(Color.WHITE);
+        contactArea.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
         JScrollPane scrollPane = new JScrollPane(contactArea);
         textAreaPanel.add(scrollPane, BorderLayout.CENTER);
@@ -110,10 +110,10 @@ public class PhonebookSystem extends JFrame implements ActionListener {
         JButton button = new JButton(text);
         button.setPreferredSize(new Dimension(90, 30));
         button.setFont(new Font("Arial", Font.BOLD, 12));
-        button.setBackground(new Color(100, 150, 200));
+        button.setBackground(new Color(70, 70, 70));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        button.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         button.addActionListener(this);
         return button;
     }
@@ -251,14 +251,4 @@ public class PhonebookSystem extends JFrame implements ActionListener {
             deleteContact();
         } else if (e.getSource() == searchButton) {
             searchContact();
-        } else if (e.getSource() == updateButton) {
-            updateContact();
-        } else if (e.getSource() == displayButton) {
-            loadContacts();
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new PhonebookSystem().setVisible(true));
-    }
-          }
+        } else if (e.getSource() == updateButton
