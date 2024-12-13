@@ -8,7 +8,6 @@ public class Calculator extends JFrame implements ActionListener {
     private String num1 = "", num2 = "", operator = "";
 
     public Calculator() {
-        
         setTitle("Calculator");
         setSize(400, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -19,10 +18,13 @@ public class Calculator extends JFrame implements ActionListener {
         display.setFont(new Font("Arial", Font.BOLD, 20));
         display.setPreferredSize(new Dimension(400, 80)); 
         display.setHorizontalAlignment(SwingConstants.RIGHT); 
+        display.setBackground(new Color(40, 40, 40));  
+        display.setForeground(Color.WHITE);  
         add(display, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 4));
+        buttonPanel.setBackground(new Color(40, 40, 40)); 
 
         String[] buttons = {
                 "7", "8", "9", "/",
@@ -34,13 +36,15 @@ public class Calculator extends JFrame implements ActionListener {
         for (String text : buttons) {
             JButton button = new JButton(text);
             button.setFont(new Font("Arial", Font.BOLD, 20));
+            button.setBackground(new Color(60, 60, 60)); 
+            button.setForeground(Color.WHITE);  
             button.addActionListener(this);
             buttonPanel.add(button);
         }
 
         add(buttonPanel, BorderLayout.CENTER);
 
-      setVisible(true);
+        setVisible(true);
     }
 
     @Override
@@ -95,4 +99,4 @@ public class Calculator extends JFrame implements ActionListener {
     public static void main(String[] args) {
         new Calculator();
     }
-          }
+}
