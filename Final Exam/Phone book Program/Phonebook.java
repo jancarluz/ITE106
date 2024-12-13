@@ -12,7 +12,7 @@ public class PhonebookSystem extends JFrame implements ActionListener {
     private final File contactFile = new File("phonebook.txt");
 
     public PhonebookSystem() {
-        // Initialize UI components
+  
         setTitle("Phonebook System");
         setSize(500, 450);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -20,12 +20,12 @@ public class PhonebookSystem extends JFrame implements ActionListener {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(30, 30, 30));
 
-        // Input Panel
+  
         JPanel inputPanel = createInputPanel();
         JPanel buttonPanel = createButtonPanel();
         JPanel textAreaPanel = createTextAreaPanel();
 
-        // Add panels to the main panel
+  
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
         mainPanel.add(textAreaPanel, BorderLayout.SOUTH);
